@@ -1,0 +1,101 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button mode="ios"></ion-back-button>
+    </ion-buttons>
+    <ion-title mode="ios">
+      Adicionar/Atualizar
+    </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-toggle checked [(ngModel)]='this.product.disponivel' mode="ios"></ion-toggle>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="total">
+      <div text-center *ngIf="isUploading && !isUploaded">
+        <div>
+          <div *ngIf="percentage | async as pct">
+            Progress: {{ pct | number }}%
+            <ion-progress-bar value="{{ pct / 100 }}"></ion-progress-bar>
+          </div>
+          <div *ngIf="snapshot | async as snap">
+          </div>
+        </div>
+      </div>
+      <ion-slides>
+        <ion-slide>
+          <div class="imgP">
+            <div class='indis' [hidden]='this.product.disponivel == true'>
+              <ion-label >
+                INDISPONÍVEL
+              </ion-label>
+            </div>
+            <img class="imgP" [src]="product.picture">
+          </div>
+        </ion-slide>
+      </ion-slides>
+
+      <div class="fileUpload btn btn-primary">
+        <ion-input [(ngModel)]="product.picture" id="uploadBtn" type="file" color="tertiary" class="upload"
+          (change)="uploadFile($event.target.files)"></ion-input>
+      </div>
+
+
+
+      <ion-grid>
+        <div class="bloco">
+          <ion-row>
+            <ion-col>
+              <ion-input type="text" [(ngModel)]="product.name" placeholder="Nome"></ion-input>
+
+            </ion-col>
+          </ion-row>
+        </div>
+        <div class="bloco">
+          <ion-row>
+            <ion-textarea type="text" [(ngModel)]="product.description" placeholder="Descrição"></ion-textarea>
+          </ion-row>
+        </div>
+
+        <div class="bloco">
+          <ion-row>
+            <ion-col>
+              <ion-select [(ngModel)]="product.pCat" (ngModelChange)='consultarSubcategorias(product.pCat)'
+                placeholder="Categoria">
+                <ion-list *ngFor="let cat of this.categoriasPrimarias">
+                  <ion-select-option value="{{cat.id}}">{{cat.id}}</ion-select-option>
+                </ion-list>
+              </ion-select>
+            </ion-col>
+            <ion-col>
+              <ion-select [(ngModel)]="product.categoria" placeholder="Subcategoria" [disabled]="!product.pCat">
+                <ion-list *ngFor="let cat of this.Cat2">
+                  <ion-select-option value="{{cat}}">{{cat}}</ion-select-option>
+                </ion-list>
+              </ion-select>
+            </ion-col>
+          </ion-row>
+        </div>
+
+        <div class="bloco">
+          <ion-row>
+            <ion-input type="number" [(ngModel)]="product.price" placeholder="Preço">R$ </ion-input>/ <ion-input
+              type="select" [(ngModel)]="product.unidade" placeholder="Unidade"></ion-input>
+          </ion-row>
+        </div>
+          <div id="btn">
+            <ion-row id='btn'>
+              <ion-button (click)="saveProduct()" color="success"shape="round">
+                Salvar produto
+              </ion-button>
+            </ion-row>
+          </div>
+          
+        
+      </ion-grid>
+
+  </div>
+</ion-content>

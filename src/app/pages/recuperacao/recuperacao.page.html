@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button mode="ios"></ion-back-button>
+    </ion-buttons>
+    <ion-title mode="ios">Recueração de conta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div id="total">
+    <section>
+      <form class="form" [formGroup]="validations_form">
+
+        <ion-item class="item">
+          <ion-input [(ngModel)]="userRegister.email" formControlName="email" placeholder=" Email" color="primary"
+            type="email">
+            <ion-icon name="mail-outline"></ion-icon>
+          </ion-input>
+          <ion-note color="danger">*</ion-note>
+        </ion-item>
+        <div class="validation-errors">
+          <ng-container *ngFor="let validation of validation_messages.email">
+            <div class="error-message"
+              *ngIf="validations_form.get('email').hasError(validation.type) && (validations_form.get('email').dirty || validations_form.get('email').touched)">
+              {{ validation.message }}
+            </div>
+          </ng-container>
+        </div>
+        <br>
+
+      </form>
+    </section>
+    <div id='msg'>
+      <ion-label>
+        * Atenção, só é possível modificar sua senha uma vez a cada 24h.<br>
+        * Se tudo ocorrer bem, será enviado um email com seu link de redefinição de senha!<br>
+      </ion-label>
+    </div>
+    <ion-button expand='full' [disabled]='!this.validations_form.valid' color="danger" shape="round" (click)="getPassword()">Enviar Email</ion-button>
+  </div>
+</ion-content>

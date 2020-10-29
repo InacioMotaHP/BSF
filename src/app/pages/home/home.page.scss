@@ -1,0 +1,56 @@
+ion-slides{
+  min-width: 100%;
+  min-height: 100%;
+  background: #464646;
+}
+
+.msgd{
+  text-align: center;
+  margin-top: 30%;
+
+}
+.msg{
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 30%;
+  font-size: 23px;
+  text-align: center;
+  color: #57d055;
+}
+.total{
+  background: #464646;
+  min-height: 100%;
+  padding-top: 3px ;
+}
+.bloco{
+  background: #313132;
+  margin-top: 5px;
+  margin: 10px;
+  border-radius: 10px;
+  color:white;
+
+}
+.blocot{
+  background: #313132;
+  margin-top: 5px;
+  color:white;
+
+}
+h1{
+  font-size: 18px;
+    color: #57d055;
+    text-align: center;
+    padding: 5px;
+
+}
+#statusR{
+  color: #57d055;
+}
+ion-buttons{
+  text-align: center;
+}
+.txtSegment{
+ margin-bottom: 5px;
+}
+ion-segment{
+  height: auto;
+}

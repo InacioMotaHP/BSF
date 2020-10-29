@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, AlertController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -13,42 +14,50 @@ export class AppComponent implements OnInit {
   public selectedIndex = 0;
   public appPages = [
     {
-      title: 'Inbox',
-      url: '/folder/Inbox',
-      icon: 'mail'
+      title: 'Pedidos',
+      url: './home',
+      icon: 'home'
     },
     {
-      title: 'Outbox',
-      url: '/folder/Outbox',
-      icon: 'paper-plane'
+      title: 'Meus Produtos',
+      url: './produtos',
+      icon: 'apps'
+    },
+   {
+      title: 'Informativos & Promoções',
+      url: './informativos',
+      icon: 'add'
     },
     {
-      title: 'Favorites',
-      url: '/folder/Favorites',
-      icon: 'heart'
+      title: 'Editar Dados',
+      url: './editperfil',
+      icon: 'person'
     },
     {
-      title: 'Archived',
-      url: '/folder/Archived',
-      icon: 'archive'
+      title: 'Histórico',
+      url: './historicos',
+      icon: 'stats-chart'
+
     },
     {
-      title: 'Trash',
-      url: '/folder/Trash',
-      icon: 'trash'
+      title: 'Pagamento',
+      url: './pagamento',
+      icon: 'cash'
     },
     {
-      title: 'Spam',
-      url: '/folder/Spam',
-      icon: 'warning'
+      title: 'Ajuda',
+      url: './help',
+      icon: 'help'
     }
   ];
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
+  public labels = ['inaciomotacrf@gmail.com', '(88)9.9770-2081'];
 
   constructor(
+    private alertController: AlertController,
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private afa: AuthService
   ) {
     this.initializeApp();
   }
@@ -61,9 +70,33 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    const path = window.location.pathname.split('folder/')[1];
-    if (path !== undefined) {
-      this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
-    }
+  }
+
+  logout() {
+    return this.afa.logout();
+  }
+  async confirmLogout() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      mode: 'ios',
+      header: 'Deseja realmente sair da sua conta?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Confirmar',
+          handler: () => {
+            this.logout()
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 }

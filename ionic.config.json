@@ -1,7 +1,8 @@
 {
   "name": "shoppFornecedor",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
   "type": "angular"
 }

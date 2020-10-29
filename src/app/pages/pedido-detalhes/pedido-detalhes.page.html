@@ -1,0 +1,139 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button mode="ios"></ion-back-button>
+    </ion-buttons>
+    <ion-title mode="ios">{{this.pedido.clienteName}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div id="total">
+    <div class="bloco">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <h1>Detalhes do seu pedido</h1>
+
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-label font-size="15px" color="success" text-align="left" (click)="ver()">{{this.verm}}</ion-label>
+          <hr size="100%" color="white">
+        </ion-row>
+
+        <div id="dados" [hidden]="cond">
+          <!-- <ion-label><strong>Fornecedor:</strong> {{pedido.fornecedor}}</ion-label><br>
+          <ion-label><strong>Tel. do Fornecedor:</strong> {{pedido.contatorEmpresa}}</ion-label><br>-->
+          <ion-label><strong>Cliente:</strong> {{pedido.clienteName}}</ion-label><br>
+          <ion-label><strong>Tel.do Cliente:</strong> {{pedido.clienteTelefone}}</ion-label><br>
+          <ion-label><strong>Data:</strong> {{pedido.dataEhorario|date: 'short'}}</ion-label><br>
+          <ion-label><strong>Status:</strong> {{pedido.status}}</ion-label><br>
+          <ion-label><strong>Valor Total:</strong> R$ {{pedido.ValorTotal}}</ion-label><br>
+          <ion-label><strong>Endereço:</strong> {{pedido.clienteEndereco}}, {{pedido.proximoAque}}</ion-label><br>
+          <!--<ion-label><strong>Pagamento:</strong> {{pedido.formaPagamento}}</ion-label><br><br>-->
+          <ion-label><strong>Observações:</strong>
+            <ion-label [hidden]='this.pedido.descricaoEobservacoes != ""'> Sem Observações</ion-label>
+            {{pedido.descricaoEobservacoes}}
+          </ion-label><br><br>
+        </div>
+      </ion-grid>
+    </div>
+
+
+
+    <div class="bloco">
+
+      <h1> {{this.pedidoProd.length}} Produto(s) </h1>
+
+      <div class="bloco">
+        <div *ngFor="let pedis of pedidoProd">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="3" id="col">
+                foto
+              </ion-col>
+              <ion-col size="4" id="col">
+                Produto
+              </ion-col>
+              <ion-col size="3" id="col">
+                Preço
+              </ion-col>
+              <ion-col size="2" id="col">
+                Quant
+              </ion-col>
+
+            </ion-row>
+            <ion-row>
+
+              <ion-col id="col" size="3">
+                <ion-row id="rowEdit" *ngFor="let imgP of pedis.produtoPicture">
+                  <ion-avatar>
+                    <img [src]="imgP">
+                  </ion-avatar>
+                </ion-row>
+              </ion-col>
+
+              <ion-col id="col" size="4">
+                <ion-row id="rowEdit" *ngFor="let nomeP of pedis.produtoNome">
+                  <ion-col>
+                    <ion-label id="nameP">{{nomeP}} </ion-label>
+                  </ion-col>
+                </ion-row>
+              </ion-col>
+
+              <ion-col id="col" size="3">
+                <ion-row id="rowEdit" *ngFor="let precoP of pedis.produtoPreco">
+                  <ion-col>
+                    <ion-label id="nameP">R${{precoP}} </ion-label>
+                  </ion-col>
+                </ion-row>
+              </ion-col>
+
+              <ion-col id="col" size="2">
+                <ion-row id="rowEdit" *ngFor="let quantP of pedis.produtoQuantidade">
+                  <ion-col>
+                    <ion-label id="nameP">{{quantP}} </ion-label>
+                  </ion-col>
+                </ion-row>
+              </ion-col>
+
+            </ion-row>
+            <ion-row>
+              <ion-label>Valor Total: R$ <strong>{{pedido.ValorTotal}}</strong></ion-label><br>
+            </ion-row>
+          </ion-grid>
+        </div>
+      </div>
+      <ion-grid>
+        <ion-row>
+          <ion-col size='6'>
+            <ion-button color="tertiary" shape="round" expand="block"
+              [disabled]="this.pedido.status == 'Em andamento' ||this.pedido.status == 'Recebido' || this.pedido.status == 'Cancelado'"
+              (click)="confirmAlteracaoStatus('emAndamento', 'Atenção', 'Tem certeza que este produto entrará em antendimento agora?')">
+              Em andamento</ion-button>
+
+          </ion-col>
+          <ion-col size='6'>
+            <ion-button color="danger" shape="round"
+              [disabled]='this.pedido.status == "Recebido" || this.pedido.status == "Cancelado"' expand="block"
+              (click)="confirmCancel()">Cancelar</ion-button>
+
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-button color="success" shape="round" expand="block"
+              [disabled]="this.pedido.status == 'Realizado' ||this.pedido.status == 'Recebido'|| this.pedido.status == 'Cancelado'"
+              (click)="confirmAlteracaoStatus('recebido','Atenção','Tem certeza que este produto foi recebido?')">
+              Entregue</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+
+
+</ion-content>

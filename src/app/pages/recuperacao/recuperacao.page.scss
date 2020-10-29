@@ -1,0 +1,23 @@
+#total{
+    min-height: 100%;
+    min-width: 100%;
+    background: #464646;
+    padding-top: 15%;
+    padding-right: 5px;
+    padding-left: 5px;
+    padding-bottom: 15px;
+}
+.item {
+    border-radius: 100px;
+    margin-top: 5px;
+    height: 40px;
+  }
+  #msg{
+      color: #57d055;
+      font-size: 15px;
+      text-align: center;
+  }
+  .error-message{
+    color:red;
+    text-align: center;
+  }

@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button mode="ios"></ion-menu-button>
+    </ion-buttons>
+    <ion-title mode="ios">Meus Produtos</ion-title>
+  </ion-toolbar>
+  <ion-toolbar color="primary">
+    <ion-searchbar mode='ios' animated="true" placeholder="Buscar Produto" (ionInput)="filterList($event)">
+    </ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="success" (click)="directAddProd()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <div class="tot">
+    <div class='bloco' *ngFor="let product of produto" [hidden]='product.fornecedor!=userRegister.name'>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="10"></ion-col>
+          <ion-col>
+            <ion-icon name="trash-outline" mode="ios" fill="clear" color="danger" (click)="confirmDelete(product.id)">
+            </ion-icon>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size='4'>
+            <img id='imgProduto' [src]="product.picture">
+          </ion-col>
+          <ion-col>
+            <ion-label>
+              {{ product.name }}
+              <p>Criado: {{product.createdAt|date:'short'}}</p>
+              <p>
+                <ion-button shape="round" size="small" color="success" [routerLink]="['/addproduto', product.id]">
+                  Visualizar</ion-button>
+              </p>
+            </ion-label>
+
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+       
+    <div class='msgd' [hidden]='this.msg ==""'>
+      <h2>{{msg}}</h2>
+    </div>
+
+  </div>
+
+</ion-content>

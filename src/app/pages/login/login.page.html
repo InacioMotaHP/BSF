@@ -1,0 +1,66 @@
+<ion-content>
+
+  <div id="total">
+    <div id="login">
+      <section>
+        <header>
+         <img src="../../../assets/imagens/buyers.png">
+        </header>
+
+        <form class="form" [formGroup]="validations_form">
+          <ion-item class="item">
+            <ion-input [(ngModel)]="userLogin.email" placeholder="Email" color="primary" formControlName="email"
+              type="text">
+              <ion-icon name="mail-outline"></ion-icon>
+            </ion-input>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.email">
+              <div class="error-message"
+                *ngIf="validations_form.get('email').hasError(validation.type) && (validations_form.get('email').dirty || validations_form.get('email').touched)">
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+          <br>
+          <ion-item class="item">
+            <ion-input [(ngModel)]="userLogin.password" placeholder="Senha" color="primary" formControlName="password"
+              type="password">
+              <ion-icon name="key-outline"></ion-icon>
+            </ion-input>
+          </ion-item>
+
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.password">
+              <div class="error-message"
+                *ngIf="validations_form.get('password').hasError(validation.type) && (validations_form.get('password').dirty || validations_form.get('password').touched)">
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+
+          <ion-label id="recuperacao" (click)="redirectRecuperacao()">Esqueceu a senha?</ion-label>
+
+          <ion-row>
+            <ion-col size="8">
+
+            </ion-col>
+            <ion-col>
+              <ion-button color="danger" shape="round" class="submit-btn" type="submit"
+                [disabled]="!validations_form.valid" (click)="login()">Entrar</ion-button>
+            </ion-col>
+
+          </ion-row>
+
+          <label class="error-message">{{errorMessage}}</label>
+        </form>
+      </section>
+      <section id="registrobtn">
+        <p>Não possui registro?</p>
+        <ion-button shape="round" color="success" (click)="redirectCadastro()">Cadastre-se</ion-button>
+        <p>É rápido, simples, incrivelmente direto e com o 1° mês 100% gratuito!!!</p>
+      </section>
+    </div>
+  </div>
+
+</ion-content>

@@ -1,0 +1,47 @@
+ion-content ion-toolbar {
+    --background: translucent;
+  }
+  .imgP{
+    width: auto;
+    //height: 200px;
+    max-height: 300px;
+    min-height: 250px;
+    text-align: center;
+}
+
+.total{
+  background: #464646;
+  padding-bottom: 2px;
+  min-height: 100%;
+}
+.bloco{
+  background: #313132;
+  margin-top: 1px;
+  color: white;
+  text-align: center;
+  border-radius: 6px;
+  font-size: 18px;
+}
+#btn{
+  margin-top: 5px;
+  margin-bottom: 10px;
+
+  text-align: center;
+}
+ion-toggle {
+  --background: white;
+  --background-checked: white;
+
+  --handle-background: red;
+  --handle-background-checked: #57d055;
+  height: 25px;
+}
+.indis{
+    font-size: 35px;
+    position: absolute;
+    color: red;
+    text-align: center;
+    margin-top: 50%;
+    background: #313132;
+    margin-left: 5%;
+}

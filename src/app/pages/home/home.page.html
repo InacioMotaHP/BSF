@@ -1,0 +1,214 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button mode="ios"></ion-menu-button>
+    </ion-buttons>
+    <ion-title mode="ios">
+      Pedidos
+    </ion-title>
+  </ion-toolbar>
+
+  <ion-toolbar color="primary">
+    <ion-segment mode="md" [(ngModel)]="segment" (ionChange)='segmentChanged($event)'>
+      <ion-segment-button value='0'>
+        <ion-label class="txtSegment"> Em espera</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value='1'>
+        <ion-label class="txtSegment"> Em Andamento
+        </ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!--
+  <ion-slides pager="false" #slides [options]="slideOpts" (ionSlideDidChange)="slideShanged(slides)"
+    (ionSlidesDidLoad)="slideShanged(slides)">
+    <ion-slide>
+      <ion-grid>
+        <div class="msg" [hidden]='this.pedidos.length != 0'>
+          <ion-label class="msg">
+            Sem Novos Pedidos, Tente Atualizar!
+          </ion-label>
+        </div>
+        <ion-row>
+          <ion-col>
+            <div class="blocot" [hidden]='this.pedidos.length == 0'>
+              <h1>Pedidos Aguardando Atendimento</h1>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <div class="bloco" *ngFor="let pedis of pedidos">
+              <ion-grid [hidden]='pedis.status!="Realizado"'>
+                <ion-row>
+                  <ion-col size='4'>Horário:</ion-col>
+                  <ion-col>{{pedis.dataEhorario|date:'short'}}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size='4'>Valor:</ion-col>
+                  <ion-col>{{pedis.ValorTotal.toFixed(2)}}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size='4'>Status:</ion-col>
+                  <ion-col id='statusR'>{{pedis.status}}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                  </ion-col>
+                  <ion-col>
+                    <ion-button color="success" shape="round" (click)='Visualizar(pedis.cod)'>Atender</ion-button>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </div>
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
+
+
+    </ion-slide>
+    <ion-slide>
+      <ion-grid>
+        <ion-row>
+          <div class="msg" [hidden]='this.pedidosEm.length != 0'>
+            <ion-label class="msg">
+              Sem Pedidos Em Atendimento, Coloque Algum Nesse Status e Tente Atualizar!
+            </ion-label>
+          </div>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <div class="blocot" [hidden]='this.pedidosEm.length == 0'>
+              <h1>Pedidos Em Atendimento</h1>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+
+            <div class="bloco" *ngFor="let pedis of pedidosEm">
+              <ion-grid [hidden]='pedis.status!="Em andamento"'>
+                <ion-row>
+                  <ion-col size='4'>Horário:</ion-col>
+                  <ion-col>{{pedis.dataEhorario|date:'short'}}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size='4'>Valor:</ion-col>
+                  <ion-col>{{pedis.ValorTotal.toFixed(2)}}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size='4'>Status:</ion-col>
+                  <ion-col id='statusR'>{{pedis.status}}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                  </ion-col>
+                  <ion-col>
+                    <ion-button color="danger" shape="round" (click)='Visualizar(pedis.cod)'>Resumo</ion-button>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </div>
+
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </ion-slide>
+  </ion-slides>
+-->
+
+
+  <ion-slides pager="false" #slides [options]="slideOpts" (ionSlideDidChange)="slideShanged(slides)"
+    (ionSlidesDidLoad)="slideShanged(slides)">
+    <ion-slide>
+      <ion-grid>
+        <div class="msg" [hidden]='this.msgaguar == ""'>
+          <ion-label class="msg">
+            {{msgaguar}}
+          </ion-label>
+        </div>
+        <ion-row>
+          <ion-col>
+            <div class="bloco" *ngFor="let pedis of pedidosTotais">
+              <div class="bloco" *ngIf="pedis.fornecedorId == idEmpresa">
+                <ion-grid [hidden]='pedis.status!="Realizado"'>
+                  <ion-row>
+                    <ion-col size='4'>Horário:</ion-col>
+                    <ion-col displayFormat="DD/MM/YYYY HH:mm" pickerFormat="MMM D:HH:mm">
+                      {{pedis.dataEhorario|date:'short'}}</ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col size='4'>Valor:</ion-col>
+                    <ion-col>{{pedis.ValorTotal.toFixed(2)}}</ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col size='4'>Status:</ion-col>
+                    <ion-col id='statusR'>{{pedis.status}}</ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col>
+                    </ion-col>
+                    <ion-col>
+                      <ion-button color="success" shape="round" (click)='Visualizar(pedis.id)'>Atender</ion-button>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
+
+
+    </ion-slide>
+    <ion-slide>
+      <ion-grid>
+        <div class="msg" [hidden]='this.msgem == ""'>
+          <ion-label class="msg">
+            {{msgem}}
+          </ion-label>
+        </div>
+        <ion-row>
+          <ion-col>
+
+            <div class="bloco" *ngFor="let pedis of pedidosTotais">
+              <div class="bloco" *ngIf="pedis.fornecedorId == idEmpresa">
+
+                <ion-grid [hidden]='pedis.status!="Em andamento"'>
+                  <ion-row>
+                    <ion-col size='4'>Horário:</ion-col>
+                    <ion-col>{{pedis.dataEhorario|date:'short'}}</ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col size='4'>Valor:</ion-col>
+                    <ion-col>{{pedis.ValorTotal.toFixed(2)}}</ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col size='4'>Status:</ion-col>
+                    <ion-col id='statusR'>{{pedis.status}}</ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col>
+                    </ion-col>
+                    <ion-col>
+                      <ion-button color="danger" shape="round" (click)='Visualizar(pedis.id)'>Resumo</ion-button>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </div>
+            </div>
+
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </ion-slide>
+  </ion-slides>
+
+</ion-content>
